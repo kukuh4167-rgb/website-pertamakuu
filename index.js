@@ -1,20 +1,25 @@
-cat > index.js << 'EOF'
 const express = require('express');
 const path = require('path');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Serve static files dari folder public
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Route utama
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 
-  app.listen(PORT, () => {
-    console.log(`Server berjalan di http://localhost:${PORT}`);
-    });
+  app.get('/api/info', (req, res) => {
+    res.json({
+        status: 'online',
+            pesan: 'Halo dari API!',
+                waktu: new Date().toLocaleString('id-ID')
+                  });
+                  });
 
-    module.exports = app;
-    EOF
+                  app.listen(PORT, () => {
+                    console.log(`✅ Server jalan di http://localhost:${PORT}`);
+                    });
+
+                    module.exports = app;
